@@ -17,14 +17,8 @@ function is_prime(number::Int)::Bool
     end
 
     upper_bound = isqrt(number)+1
-
-    for i ∈ 3:2:upper_bound
-        if number % i == 0
-            return false
-        end
-    end
-
-    return true
+    
+    return all(i-> number % i != 0, 3:2:upper_bound)
 end
 
 
