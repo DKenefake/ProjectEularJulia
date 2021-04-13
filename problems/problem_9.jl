@@ -2,14 +2,12 @@
 # C Style brute force
 function problem_9(number::Int)::Int
 
-    for i ∈ 1:(number-1)
-        for j ∈ i:(number-1)
-            if i < j && i + j < number
-                k = number - i - j
-                if i^2 + j^2 == k^2
-                    if i + j + k == number
-                        return i*j*k
-                    end
+    for i ∈ 1:(div(number,2))
+        for j ∈ (i+1):(number-i)
+            k = number - i - j
+            if i^2 + j^2 == k^2
+                if i + j + k == number
+                    return i*j*k
                 end
             end
         end
@@ -51,5 +49,5 @@ function problem_9_informed(number::Int)::Int
 end # function
 
 # Benchmarks
-# problem_9(1000)               155.000 μs (0 allocations: 0 bytes)
+# problem_9(1000)               107.400 μs (0 allocations: 0 bytes)
 # problem_9_informed(1000)      35.815 ns (0 allocations: 0 bytes)
