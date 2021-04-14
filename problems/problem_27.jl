@@ -47,7 +47,7 @@ function problem_27(number::Int)
     return a_best*b_best
 end # function
 
-# informed algorithm, this is BAD CODE
+# informed algorithm
 function problem_27_informed(number::Int)
 
     f = (n, a, b) -> n*n + a*n + b
