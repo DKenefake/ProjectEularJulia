@@ -1,7 +1,6 @@
 
 function collatz(k::Int)::Int
     i = 1
-
     while k != 1
         if k % 2 == 0
             k = Int(k/2)
@@ -10,7 +9,6 @@ function collatz(k::Int)::Int
         end
         i += 1
     end
-
     return i
 end
 
@@ -37,13 +35,10 @@ end # function
 
 # functional programming brute force
 function problem_14_fp(number::Int)
-
-    seq_lengths = map(collatz, 1:number)
-    largest_index = argmax(seq_lengths)
-    return largest_index, seq_lengths[largest_index]
-
+    return findmax(map(collatz, 1:number))
 end
 
+#calculates the extra length of a sequence ϕ_k compaired to ϕ_n, with n < k
 function offset_collatz(k::Int)
 
     start = k
@@ -55,9 +50,7 @@ function offset_collatz(k::Int)
         else
             k = 3*k +1
         end
-
         steps += 1
-
         if k < start
             return steps, k
         end
@@ -88,5 +81,5 @@ end
 
 # Benchmarks
 # problem_14(1_000_000)         510.043 ms (0 allocations: 0 bytes)
-# problem_14_fp(1_000_000)      514.014 ms (2 allocations: 7.63 MiB)
+# problem_14_fp(1_000_000)      534.733 ms (2 allocations: 7.63 MiB)
 # problem_14_offset(1_000_000)   21.509 ms (2 allocations: 7.63 MiB)
