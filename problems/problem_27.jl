@@ -64,10 +64,6 @@ function problem_27_informed(number::Int)
             # check if the best position is a prime
             # this must be true for this to be viable
 
-            if !is_prime(f_ab(10))
-                continue
-            end
-
             if !is_prime(f_ab(val_best))
                 continue
             end
