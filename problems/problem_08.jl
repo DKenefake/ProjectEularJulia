@@ -35,6 +35,15 @@ function problem_8(number)
     return largest_product
 end # function
 
+# functional programming brute force approach
+function problem_8_fp(number)
+    # parse the data
+    number_vals = map(i-> parse(Int, i), collect(data))
+    # calculate all products that could be
+    product_values = map(i->reduce(*, number_vals[i:i+number-1]) ,1:length(number_vals) - number)
+    return maximum(product_values)
+end
+
 function problem_8_informed(number)
     #use the fact that zeros, you know  uhhh zero the multiplication
     number_vals = map( i-> parse(Int, i), collect(data))
@@ -56,5 +65,9 @@ function problem_8_informed(number)
     end
 
     return largest_product
-
 end
+
+# Benchmarks
+# problem_8(13)             254.800 μs (5159 allocations: 293.08 KiB)
+# problem_8_fp(13)          48.100 μs (999 allocations: 205.17 KiB)
+# problem_8_informed(13)    99.000 μs (2287 allocations: 117.44 KiB)
