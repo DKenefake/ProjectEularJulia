@@ -52,34 +52,34 @@ function problem_27_informed(number::Int)
 
     f = (n, a, b) -> n*n + a*n + b
     a_best, b_best = 0,0
-    val_best = -1
+    val_best = 3
 
-    prime_list = filter(is_prime, 1:number)
+    primes = filter(i->is_prime(i), 2:number)
 
-    prime_indices = 1:100
+    for a ∈ -primes∪primes
+        for b ∈ primes
 
-    for a ∈ prime_list
-        for b ∈ prime_list
+            f_ab = n -> n*n + a*n + b
 
-            #positive branch a > 0, b> 0
+            # check if the best position is a prime
+            # this must be true for this to be viable
+
+            if !is_prime(f_ab(10))
+                continue
+            end
+
+            if !is_prime(f_ab(val_best))
+                continue
+            end
+
             val = 0
-            while is_prime(val*val + a*val + b)
+
+            while is_prime(f_ab(val))
                 val += 1
             end
 
             if val > val_best
                 a_best, b_best = a, b
-                val_best = val
-            end
-
-            #positive branch a > 0, b> 0
-            val = 0
-            while is_prime(val*val + -a*val + b)
-                val += 1
-            end
-
-            if val > val_best
-                a_best, b_best = -a, b
                 val_best = val
             end
         end
@@ -88,5 +88,5 @@ function problem_27_informed(number::Int)
 end
 
 # Benchmarks
-# problem_27(100)           53.162 ms (0 allocations: 0 bytes)
-# problem_27_informed        5.249 ms (2 allocations: 9.39 KiB)
+# problem_27(1000)           53.162 ms (0 allocations: 0 bytes)
+# problem_27_informed         3.812 ms (25 allocations: 32.39 KiB)
